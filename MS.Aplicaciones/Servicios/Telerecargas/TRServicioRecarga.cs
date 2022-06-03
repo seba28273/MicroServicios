@@ -14,9 +14,9 @@ using System.ServiceModel.Security;
 
 namespace MS.Aplicaciones.Servicios.Telerecargas
 {
-    public class TRServicioRecarga : IOperacionesTelerecargasVentas<ventaRecargaRequest, consultaRecargaResponse> 
+    public class TRServicioRecarga : IOperacionesTelerecargasVentas<ventaRecargaRequest, consultaRecargaResponse>
     {
-      
+
         public static bool ValidateServerCertificate(Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             return true;
@@ -28,11 +28,11 @@ namespace MS.Aplicaciones.Servicios.Telerecargas
             consultaRecargaResponse oResSale = new consultaRecargaResponse();
 
             consultaRecargaResponse oRes = new consultaRecargaResponse();
-  
+
             IpsGvWebServiceSoapClient oSerTR = new IpsGvWebServiceSoapClient();
             try
             {
- 
+
                 #region security
                 BasicHttpBinding result = new BasicHttpBinding();
 
@@ -52,15 +52,26 @@ namespace MS.Aplicaciones.Servicios.Telerecargas
 
                 #endregion
 
-
-
-
                 oRes = oSerTR.ventaRecarga(entidad);
                 obodyRes.mensaje = oRes.Body.mensaje;
                 obodyRes.nroTransaccionProveedor = oRes.Body.nroTransaccionProveedor;
                 obodyRes.respuesta = oRes.Body.respuesta;
                 oResSale.Body = obodyRes;
-
+                if (obodyRes.respuesta > 0)
+                {
+                    if (obodyRes.respuesta == 201 || obodyRes.respuesta == 202)
+                    {
+                        obodyRes.mensaje = "La Venta se realizo con exito. " + obodyRes.respuesta.ToString();
+                        obodyRes.nroTransaccionProveedor = "99999999";
+                        obodyRes.respuesta = 0;
+                    }
+                    if (obodyRes.respuesta == 313)
+                    {
+                        obodyRes.mensaje = "Proveedor No Disponible";
+                        obodyRes.nroTransaccionProveedor = "0";
+                        obodyRes.respuesta = 313;
+                    }
+                }
             }
             catch (Exception ex)
             {

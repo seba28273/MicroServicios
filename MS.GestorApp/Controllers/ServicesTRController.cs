@@ -16,13 +16,13 @@ namespace MS.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServicesController : ControllerBase
+    public class ServicesTRController : ControllerBase
     {
 
         private readonly IOperacionesTelerecargasBalance<ResponseBase> _ServicesBalance;
         private readonly IOperacionesTelerecargasVentas<ventaRecargaRequest, consultaRecargaResponse> _ServicesTelerecargas;
         private readonly IOperacionesTelerecargasSearchSale<estadoVentaRequest, estadoVentaResponse> _ServiciosSearchSaleTR;
-        public ServicesController(IOperacionesTelerecargasVentas<ventaRecargaRequest, consultaRecargaResponse> serviciosTR,
+        public ServicesTRController(IOperacionesTelerecargasVentas<ventaRecargaRequest, consultaRecargaResponse> serviciosTR,
             IOperacionesTelerecargasBalance<ResponseBase> serviciosBalanceTR,
             IOperacionesTelerecargasSearchSale<estadoVentaRequest, estadoVentaResponse> serviciosSearchSaleTR)
         {
@@ -93,7 +93,7 @@ namespace MS.Api.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("SaleTR")]
         public IActionResult SaleTR(string Venta)
         {
@@ -113,16 +113,13 @@ namespace MS.Api.Controllers
             obody.cuenta = oBodyreq.cuenta;
             obody.usuario = oBodyreq.usuario;
             obody.password = oBodyreq.password;
-            obody.terminalNumber = "";
-            obody.terminalType = "";
-            obody.importe = obody.importe * 100;
-            obody.producto = 420;
             oSaleRequest.Body = obody;
             #endregion
 
 
             string mRes = "";
-            
+            //mRes = JsonConvert.SerializeObject(oSaleRequest);
+
             oSale = _ServicesTelerecargas.Sale(oSaleRequest);
            
             mRes =  JsonConvert.SerializeObject(oSale);

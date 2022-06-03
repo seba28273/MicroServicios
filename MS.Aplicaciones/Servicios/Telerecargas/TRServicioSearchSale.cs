@@ -56,6 +56,15 @@ namespace MS.Aplicaciones.Servicios.Telerecargas
 
                 //ver que devolver si la misma no existe codigo 301
 
+                //Estos codigos indican que la venta debe reconsultarse o seguir en estado pendiente
+                if (obodyRes.respuesta == 201 || obodyRes.respuesta == 202 
+                    || obodyRes.respuesta == 401 || obodyRes.respuesta == 403)
+                {
+                    obodyRes.mensaje = "La Venta se realizo con exito";
+                    obodyRes.nroTransaccionProveedor = "99999999";
+                    obodyRes.respuesta = 0;
+                }
+               
                 oResSale.Body = obodyRes;
 
             }
