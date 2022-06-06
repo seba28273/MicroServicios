@@ -12,8 +12,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MS.Aplicaciones.Interfaces;
+using MS.Aplicaciones.Interfaces.Claro;
+using MS.Aplicaciones.Servicios.Claro;
 using MS.Aplicaciones.Servicios.Telerecargas;
 using MS.Domain.Telerecargas.Comunications.Request;
+using MS.Dominio.Entidades.Claro.Request;
+using MS.Dominio.Entidades.Claro.Response;
 using MS.Dominio.Interfaces;
 using ServiceTR;
 
@@ -35,7 +39,9 @@ namespace MS.GestorApp
             services.AddSingleton<IOperacionesTelerecargasVentas<ventaRecargaRequest, consultaRecargaResponse>, TRServicioRecarga>();
             services.AddSingleton<IOperacionesTelerecargasBalance<ResponseBase>, TRServicioBalance>();
             services.AddSingleton<IOperacionesTelerecargasSearchSale<estadoVentaRequest, estadoVentaResponse>, TRServicioSearchSale>();
-            //services.AddSingleton<IServiciosTRVenta<reqSaleSaldo, resSaleSaldo>, ServicesTelerecargas>();
+            services.AddSingleton<IOperacionesClaroSale<requestSaleClaro, responseSaleClaro>, ClaroServiceSale>();
+            services.AddSingleton<IOperacionesClaroSearchSale<requestSearchClaro, responseSaleClaro>, ClaroServiceSearchSale>();
+
             // services.AddSingleton<IpsGvWebServiceSoap, ServicesTelerecargas>();
             AddSwagger(services);
         }
