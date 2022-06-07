@@ -24,7 +24,7 @@ namespace MS.Aplicaciones.Servicios.Claro
             //https://recargas-ws-ar.claro.amx/pretups/rest/c2s-rest-receiver/rctrf
             //https://test-recargas-ws-ar.claro.amx/pretups/rest/c2s-rest-receiver/rctrf
 
-            string sUrlRequest = "https://10.105.218.220/webaxn/IRIS/c2sservice";
+            string sUrlRequest = "https://test-ariris-ws.claro.amx/webaxn/IRIS/c2sservice";//"https://test-ariris-ws.claro.amx/webaxn/IRIS/c2sservice";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(sUrlRequest);
 

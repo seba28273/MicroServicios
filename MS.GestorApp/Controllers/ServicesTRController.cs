@@ -40,9 +40,9 @@ namespace MS.Api.Controllers
             return Ok("EJECUCION SERVICIO");
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetSaleTR")]
-        public IActionResult GetSaleTR(string Venta)
+        public IActionResult GetSaleTR([FromBody] reqSaleSaldo prequestTR)
         {
 
             //CONTROLADOR QUE LLAMA A LA CLASE ServicesTelerecargas PARA CONSUMIR EL METODO GetBalance
@@ -50,8 +50,7 @@ namespace MS.Api.Controllers
             estadoVentaResponse oSale = new estadoVentaResponse();
             estadoVentaRequest oSaleRequest = new estadoVentaRequest();
             estadoVentaRequestBody obody = new estadoVentaRequestBody();
-            obody = JsonConvert.DeserializeObject<estadoVentaRequestBody>(Venta);
-
+  
 
             #region body
             BodyTR oBodyTR = new BodyTR();
@@ -64,6 +63,7 @@ namespace MS.Api.Controllers
             obody.password = oBodyreq.password;
             obody.terminalNumber = "";
             obody.terminalType = "";
+            obody.nroTransaccionExt = prequestTR.nroTransaccionExt;
             oSaleRequest.Body = obody;
             #endregion
 
@@ -95,7 +95,7 @@ namespace MS.Api.Controllers
 
         [HttpPost]
         [Route("SaleTR")]
-        public IActionResult SaleTR(string Venta)
+        public IActionResult SaleTR([FromBody] reqSaleSaldo prequestTR)
         {
 
             //CONTROLADOR QUE LLAMA A LA CLASE ServicesTelerecargas PARA CONSUMIR EL METODO GetBalance
@@ -103,7 +103,7 @@ namespace MS.Api.Controllers
             consultaRecargaResponse oSale = new consultaRecargaResponse();
             ventaRecargaRequest oSaleRequest = new ventaRecargaRequest();
             ventaRecargaRequestBody obody = new ventaRecargaRequestBody();
-            obody = JsonConvert.DeserializeObject<ventaRecargaRequestBody>(Venta);
+  
 
             #region body
             BodyTR oBodyTR = new BodyTR();
@@ -113,6 +113,14 @@ namespace MS.Api.Controllers
             obody.cuenta = oBodyreq.cuenta;
             obody.usuario = oBodyreq.usuario;
             obody.password = oBodyreq.password;
+            obody.codigoArea = prequestTR.codigoArea;
+            obody.numeroTelefono = prequestTR.numeroTelefono;
+            obody.prefijoPais = prequestTR.prefijoPais;
+            obody.producto = prequestTR.producto;
+            obody.nroTransaccionExt = prequestTR.nroTransaccionExt;
+            obody.datosRecarga = prequestTR.datosRecarga;
+            obody.importe = prequestTR.importe;
+
             oSaleRequest.Body = obody;
             #endregion
 
