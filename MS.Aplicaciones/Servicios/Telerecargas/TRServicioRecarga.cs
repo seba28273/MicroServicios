@@ -76,7 +76,7 @@ namespace MS.Aplicaciones.Servicios.Telerecargas
             catch (Exception ex)
             {
 
-                obodyRes.mensaje = "La Venta se realizo con exito";
+                obodyRes.mensaje = "La Venta se realizo con exito. " + ex.Message;
                 obodyRes.nroTransaccionProveedor = "99999999";
                 obodyRes.respuesta = 0;
                 oResSale.Body = obodyRes;
