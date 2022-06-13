@@ -37,7 +37,7 @@ namespace MS.GestorApp
         {
             services.AddControllers();
             services.AddSingleton<IOperacionesTelerecargasVentas<ventaRecargaRequest, consultaRecargaResponse>, TRServicioRecarga>();
-            services.AddSingleton<IOperacionesTelerecargasBalance<ResponseBase>, TRServicioBalance>();
+            services.AddSingleton<IOperacionesTelerecargasBalance<ResponseBase, int>, TRServicioBalance>();
             services.AddSingleton<IOperacionesTelerecargasSearchSale<estadoVentaRequest, estadoVentaResponse>, TRServicioSearchSale>();
             services.AddSingleton<IOperacionesClaroSale<requestSaleClaro, responseSaleClaro>, ClaroServiceSale>();
             services.AddSingleton<IOperacionesClaroSearchSale<requestSearchClaro, responseSaleClaro>, ClaroServiceSearchSale>();

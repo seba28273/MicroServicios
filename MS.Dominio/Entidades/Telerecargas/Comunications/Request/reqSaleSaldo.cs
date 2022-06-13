@@ -45,6 +45,7 @@ namespace MS.Domain.Telerecargas.Comunications.Request
 
 
         public int importe { get; set; }
+        public int produccion { get; set; }
 
     }
 }

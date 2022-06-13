@@ -13,9 +13,9 @@ using System.ServiceModel.Security;
 
 namespace MS.Aplicaciones.Servicios.Telerecargas
 {
-    public class TRServicioBalance : IOperacionesTelerecargasBalance<ResponseBase>
+    public class TRServicioBalance : IOperacionesTelerecargasBalance<ResponseBase, int>
     {
-        public ResponseBase GetBalance()
+        public ResponseBase GetBalance(int produccion)
         {
             resGetBalance oResBalance = new resGetBalance();
             try
@@ -33,7 +33,7 @@ namespace MS.Aplicaciones.Servicios.Telerecargas
                 #region body
                 BodyTR oBodyTR = new BodyTR();
                 BodyBase oBodyreq = new BodyBase();
-                oBodyreq = oBodyTR.GetBodyTR();
+                oBodyreq = oBodyTR.GetBodyTR(produccion);
                 obody.cliente = oBodyreq.cliente;
                 obody.cuenta = oBodyreq.cuenta;
                 obody.usuario = oBodyreq.usuario;

@@ -19,11 +19,11 @@ namespace MS.Api.Controllers
     public class ServicesTRController : ControllerBase
     {
 
-        private readonly IOperacionesTelerecargasBalance<ResponseBase> _ServicesBalance;
+        private readonly IOperacionesTelerecargasBalance<ResponseBase,int> _ServicesBalance;
         private readonly IOperacionesTelerecargasVentas<ventaRecargaRequest, consultaRecargaResponse> _ServicesTelerecargas;
         private readonly IOperacionesTelerecargasSearchSale<estadoVentaRequest, estadoVentaResponse> _ServiciosSearchSaleTR;
         public ServicesTRController(IOperacionesTelerecargasVentas<ventaRecargaRequest, consultaRecargaResponse> serviciosTR,
-            IOperacionesTelerecargasBalance<ResponseBase> serviciosBalanceTR,
+            IOperacionesTelerecargasBalance<ResponseBase, int> serviciosBalanceTR,
             IOperacionesTelerecargasSearchSale<estadoVentaRequest, estadoVentaResponse> serviciosSearchSaleTR)
         {
             _ServicesTelerecargas = serviciosTR;
@@ -56,7 +56,7 @@ namespace MS.Api.Controllers
             BodyTR oBodyTR = new BodyTR();
             BodyBase oBodyreq = new BodyBase();
 
-            oBodyreq = oBodyTR.GetBodyTR();
+            oBodyreq = oBodyTR.GetBodyTR(prequestTR.produccion);
             obody.cliente = oBodyreq.cliente;
             obody.cuenta = oBodyreq.cuenta;
             obody.usuario = oBodyreq.usuario;
@@ -79,14 +79,15 @@ namespace MS.Api.Controllers
 
         [HttpGet]
         [Route("GetBalanceTR")]
-        public IActionResult GetBalanceTR()
+        public IActionResult GetBalanceTR(int produccion)
         {
 
             //CONTROLADOR QUE LLAMA A LA CLASE ServicesTelerecargas PARA CONSUMIR EL METODO GetBalance
             //ACA NO ME QUEDO OTRA QUE HACER UN NEW, PERO EN TEORIA DEBERIA USAR INTERFACES E INYECCION DE DEPENDENCIAS
             ResponseBase oBalance = new resGetBalance();
-
-            oBalance = _ServicesBalance.GetBalance();
+            ventaRecargaRequestBody obody = new ventaRecargaRequestBody();
+           
+            oBalance = _ServicesBalance.GetBalance(produccion);
 
 
             return Ok(oBalance);
@@ -108,7 +109,7 @@ namespace MS.Api.Controllers
             #region body
             BodyTR oBodyTR = new BodyTR();
             BodyBase oBodyreq = new BodyBase();
-            oBodyreq = oBodyTR.GetBodyTR();
+            oBodyreq = oBodyTR.GetBodyTR(prequestTR.produccion);
             obody.cliente = oBodyreq.cliente;
             obody.cuenta = oBodyreq.cuenta;
             obody.usuario = oBodyreq.usuario;

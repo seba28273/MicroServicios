@@ -8,13 +8,24 @@ namespace MS.Aplicaciones.Servicios.Telerecargas
     public class BodyTR
     {
 
-        public BodyBase GetBodyTR()
+        public BodyBase GetBodyTR(int produccion)
         {
             BodyBase obody = new BodyBase();
-            obody.cliente = 38414;
-            obody.cuenta = 138602;
-            obody.usuario = "cargaplustest";
-            obody.password = "carga9753";
+            if (produccion == 1)
+            {
+                obody.cliente = 38414;
+                obody.cuenta = 150198;
+                obody.usuario = "cplus_h2h";
+                obody.password = "cp1u5h2h31dar";
+            }
+            else
+            {
+                obody.cliente = 38414;
+                obody.cuenta = 138602;
+                obody.usuario = "cargaplustest";
+                obody.password = "carga9753";
+            }
+           
 
             return obody;
         }

@@ -4,10 +4,10 @@ using System.Text;
 
 namespace MS.Dominio.Interfaces
 {
-    public interface IOperacionesTelerecargasBalance<T>
+    public interface IOperacionesTelerecargasBalance<T,I>
     {
 
-        public T GetBalance();
+        public T GetBalance(I produccion);
 
 
 
